@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.5.1)
+    rack (2.2.3)
+    rake (13.0.3)
+    roda (3.43.1)
+      rack
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  json
+  rake
+  roda
+
+BUNDLED WITH
+   1.16.6
