@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+export UPC_LOOKUP_GATEWAY_PORT="6300" 
+export HEARTBEAT_FREQUENCY="5" 
+export SCRAPER="OpenFoodFacts"
+bundle exec rackup -p 6301 -o 0.0.0.0

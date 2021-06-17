@@ -1,0 +1,28 @@
+FROM ruby:3.0.1-alpine3.13
+
+RUN mkdir /app
+WORKDIR   /app
+
+COPY ./Gemfile*  /app
+
+ENV BUNDLE_PATH /tmp/bundle
+ENV RACK_ENV production
+ENV DOCKER   1
+ENV PORT 6307
+ENV UPC_LOOKUP_GATEWAY_PORT 6300
+ENV HEARTBEAT_FREQUENCY 10 
+ENV SCRAPER "OpenFoodFacts"
+
+RUN apk update && apk add bash && apk add build-base
+RUN bundle install  --without development test
+
+COPY ./ /app
+#COPY lib/ /app/lib/ 
+#COPY scraper/ /app/scraper/
+#RUN echo '----------------------'
+RUN ls -la /app/*
+
+EXPOSE 6301
+
+CMD ./wait-for-it.sh localhost:5672 -- echo "rabbit is up" && \
+    bundle exec rackup -p 6301 -o 0.0.0.0
